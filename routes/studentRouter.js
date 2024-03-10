@@ -18,6 +18,7 @@ const {
   studentLikeBlog,
   studentDislikeBlog,
   getAllBlogs,
+  getAllAdverts,
 } = require("../controller/studentController");
 const sendEmail = require("../utils/verifyMail");
 const studentRouter = express.Router();
@@ -25,6 +26,7 @@ const studentRouter = express.Router();
 studentRouter.post("/register", registerStudent);
 studentRouter.get("/", getAllStudents);
 studentRouter.get("/get-all-blogs", getAllBlogs);
+studentRouter.get("/get-all-adverts", getAllAdverts);
 studentRouter.get("/:id", getStudentProfile);
 studentRouter.put(
   "/:id/update-profile",

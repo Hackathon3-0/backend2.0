@@ -154,10 +154,11 @@ exports.teacherPublishAdvert = AsyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Teacher not found");
   }
-  const { title, description, price } = req.body;
+  const { title, description, price, categories } = req.body;
   const advert = await Advert.create({
     description,
     title,
+    categories,
     price,
     teacher: teacher._id,
   });

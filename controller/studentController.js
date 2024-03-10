@@ -6,6 +6,7 @@ const generateToken = require("../utils/generateToken");
 const { hashPassword, isPasswordMatched } = require("../utils/helpers");
 const Teacher = require("../model/Teacher");
 const Blog = require("../model/Blog");
+const Advert = require("../model/Advert");
 //@desc Register Utudent
 //@route POST /api/Utudents/registee
 //@access Private
@@ -296,11 +297,24 @@ exports.studentDislikeBlog = AsyncHandler(async (req, res) => {
   });
 });
 
+//@route GET /students/get-all-blogs
+
 exports.getAllBlogs = AsyncHandler(async (req, res) => {
   const blogs = await Blog.find().select("-createdAt -updatedAt -__v");
   res.status(200).json({
     status: "success",
     data: blogs,
     message: "Blogs fetched successfully",
+  });
+});
+
+//@route GET /students/get-all-adverts
+
+exports.getAllAdverts = AsyncHandler(async (req, res) => {
+  const adverts = await Advert.find().select("-createdAt -updatedAt -__v");
+  res.status(200).json({
+    status: "success",
+    data: adverts,
+    message: "Adverts fetched successfully",
   });
 });
