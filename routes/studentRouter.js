@@ -57,6 +57,12 @@ studentRouter.put(
   roleRestriction("student"),
   studentRateTeacher
 );
+studentRouter.put(
+  "/:studentId/verify-email/:token",
+  isAuthenticated(Student),
+  roleRestriction("student"),
+  verifyEmail
+);
 
 studentRouter.delete("/:id/delete", deleteStudent);
 module.exports = studentRouter;
