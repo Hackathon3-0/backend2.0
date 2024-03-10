@@ -4,6 +4,7 @@ dotenv.config();
 const Teacher = require("../model/Teacher");
 const generateToken = require("../utils/generateToken");
 const Student = require("../model/Student");
+const { hashPassword, isPasswordMatched } = require("../utils/helpers");
 
 exports.login = AsyncHandler(async (req, res) => {
   const { email, password } = req.body;
