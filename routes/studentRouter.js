@@ -1,5 +1,4 @@
 const express = require("express");
-
 const Student = require("../model/Student");
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const roleRestriction = require("../middlewares/roleRestriction");
@@ -17,6 +16,7 @@ const {
   studentCompleteHomework,
   studentRateTeacher,
 } = require("../controller/studentController");
+const sendEmail = require("../utils/verifyMail");
 const studentRouter = express.Router();
 
 studentRouter.post("/register", registerStudent);
@@ -61,7 +61,7 @@ studentRouter.put(
   "/:studentId/verify-email/:token",
   isAuthenticated(Student),
   roleRestriction("student"),
-  verifyEmail
+  sendEmail
 );
 
 studentRouter.delete("/:id/delete", deleteStudent);
