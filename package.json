@@ -20,7 +20,8 @@
     "mongofb": "^1.0.1",
     "mongoose": "^8.2.1",
     "nodemon": "^3.1.0",
-    "openai": "^4.28.4"
+    "openai": "^4.28.4",
+    "socket.io": "^4.7.4"
   },
   "devDependencies": {
     "coffee-script": "^1.7.1"
