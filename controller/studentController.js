@@ -101,14 +101,16 @@ exports.addNewCategory = AsyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Student not found");
   }
-  const { category } = req.body;
+  const { categories } = req.body;
+  categories.forEach((category) => {
+    // loop through the categories
+    if (student.categories.includes(category)) {
+      res.status(400);
+      throw new Error(`Category ${category} already exists`);
+    }
+    student.categories.push(category);
+  });
 
-  if (student.categories.includes(category)) {
-    res.status(400);
-    throw new Error("Category already exists");
-  }
-
-  student.categories.push(category);
   const updatedStudent = await student.save();
   res.status(200).json({
     status: "success",
@@ -291,5 +293,14 @@ exports.studentDislikeBlog = AsyncHandler(async (req, res) => {
     status: "success",
     data: blog,
     message: "Student disliked the blog successfully",
+  });
+});
+
+exports.getAllBlogs = AsyncHandler(async (req, res) => {
+  const blogs = await Blog.find().select("-createdAt -updatedAt -__v");
+  res.status(200).json({
+    status: "success",
+    data: blogs,
+    message: "Blogs fetched successfully",
   });
 });

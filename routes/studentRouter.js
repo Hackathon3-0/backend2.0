@@ -15,6 +15,9 @@ const {
   studentCompleteTask,
   studentCompleteHomework,
   studentRateTeacher,
+  studentLikeBlog,
+  studentDislikeBlog,
+  getAllBlogs,
 } = require("../controller/studentController");
 const sendEmail = require("../utils/verifyMail");
 const studentRouter = express.Router();
@@ -62,6 +65,19 @@ studentRouter.put(
   isAuthenticated(Student),
   roleRestriction("student"),
   sendEmail
+);
+studentRouter.get("/getAllBlogs", getAllBlogs);
+studentRouter.put(
+  "/:studentId/student-like-blog/:blogId",
+  isAuthenticated(Student),
+  roleRestriction("student"),
+  studentLikeBlog
+);
+studentRouter.put(
+  "/:studentId/student-dislike-blog/:blogId",
+  isAuthenticated(Student),
+  roleRestriction("student"),
+  studentDislikeBlog
 );
 
 studentRouter.delete("/:id/delete", deleteStudent);
