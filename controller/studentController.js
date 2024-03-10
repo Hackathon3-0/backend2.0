@@ -5,6 +5,7 @@ const Student = require("../model/Student");
 const generateToken = require("../utils/generateToken");
 const { hashPassword, isPasswordMatched } = require("../utils/helpers");
 const Teacher = require("../model/Teacher");
+const Blog = require("../model/Blog");
 //@desc Register Utudent
 //@route POST /api/Utudents/registee
 //@access Private
@@ -222,5 +223,73 @@ exports.studentRateTeacher = AsyncHandler(async (req, res) => {
     status: "success",
     data: teacher,
     message: "Student rated teacher succesfully",
+  });
+});
+
+//@route PUT /students/:studentId/student-like-blog/:blogId
+exports.studentLikeBlog = AsyncHandler(async (req, res) => {
+  const student = await Student.findById(req.params.studentId);
+  if (!student) {
+    res.status(404);
+    throw new Error("Student not found");
+  }
+
+  const blog = await Blog.findById(req.params.blogId);
+  if (!blog) {
+    res.status(404);
+    throw new Error("Blog not found");
+  }
+
+  // Check if the student has already liked the blog
+  if (blog.likes.includes(student._id)) {
+    res.status(400);
+    throw new Error("Blog already liked by the student");
+  }
+
+  // Add the student to the blog's likes
+  blog.likes.push(student._id);
+  await blog.save();
+
+  res.status(200).json({
+    status: "success",
+    data: blog,
+    message: "Student liked the blog successfully",
+  });
+});
+
+//@route PUT /students/:studentId/student-dislike-blog/:blogId
+exports.studentDislikeBlog = AsyncHandler(async (req, res) => {
+  const student = await Student.findById(req.params.studentId);
+  if (!student) {
+    res.status(404);
+    throw new Error("Student not found");
+  }
+
+  const blog = await Blog.findById(req.params.blogId);
+  if (!blog) {
+    res.status(404);
+    throw new Error("Blog not found");
+  }
+
+  // Check if the student has already disliked the blog
+  if (blog.dislikes.includes(student._id)) {
+    res.status(400);
+    throw new Error("Blog already disliked by the student");
+  }
+
+  // Remove the student from the blog's likes if exists
+  const index = blog.likes.indexOf(student._id);
+  if (index > -1) {
+    blog.likes.splice(index, 1);
+  }
+
+  // Add the student to the blog's dislikes
+  blog.dislikes.push(student._id);
+  await blog.save();
+
+  res.status(200).json({
+    status: "success",
+    data: blog,
+    message: "Student disliked the blog successfully",
   });
 });

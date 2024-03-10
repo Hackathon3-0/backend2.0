@@ -103,8 +103,7 @@ exports.addNewCategory = AsyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Teacher not found");
   }
-  const { categories } = req.body; // change 'category' to 'categories'
-
+  const { categories } = req.body;
   categories.forEach((category) => {
     // loop through the categories
     if (teacher.categories.includes(category)) {
