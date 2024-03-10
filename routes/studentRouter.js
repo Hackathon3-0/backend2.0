@@ -24,6 +24,7 @@ const studentRouter = express.Router();
 
 studentRouter.post("/register", registerStudent);
 studentRouter.get("/", getAllStudents);
+studentRouter.get("/get-all-blogs", getAllBlogs);
 studentRouter.get("/:id", getStudentProfile);
 studentRouter.put(
   "/:id/update-profile",
@@ -66,7 +67,6 @@ studentRouter.put(
   roleRestriction("student"),
   sendEmail
 );
-studentRouter.get("/getAllBlogs", getAllBlogs);
 studentRouter.put(
   "/:studentId/student-like-blog/:blogId",
   isAuthenticated(Student),
