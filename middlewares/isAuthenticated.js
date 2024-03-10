@@ -16,7 +16,6 @@ const isAuthenticated = (model) => {
         .select("name email role");
       //save the user into req.obj
       req.userAuth = user;
-      console.log(req.userAuth);
       next();
     } else {
       const err = new Error("Token expired/invalid");
