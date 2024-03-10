@@ -3,10 +3,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 const Teacher = require("../model/Teacher");
 const generateToken = require("../utils/generateToken");
-const { hashPassword, isPasswordMatched } = require("../utils/helpers");
-const Blog = require("../model/Blog");
-const Advert = require("../model/Advert");
-const Test = require("../model/Test");
 const Student = require("../model/Student");
 
 exports.login = AsyncHandler(async (req, res) => {
