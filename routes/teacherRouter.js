@@ -15,12 +15,14 @@ const {
   teacherPublishAdvert,
   demoCreateTest,
   teacherAssignHomework,
+  getMyBlog,
 } = require("../controller/teacherController");
 const teacherRouter = express.Router();
 
 teacherRouter.post("/register", registerTeacher);
 teacherRouter.get("/", getAllTeachers);
 teacherRouter.get("/:id", getTeacherProfile);
+teacherRouter.get("/:teacherId/get-my-blog", getMyBlog);
 teacherRouter.put(
   "/:id/update-profile",
   isAuthenticated(Teacher),

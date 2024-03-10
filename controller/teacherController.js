@@ -176,7 +176,20 @@ exports.teacherPublishAdvert = AsyncHandler(async (req, res) => {
     message: "Advert published successfully",
   });
 });
-
+//@route GET /:teacherId/get-my-blog
+exports.getMyBlog = AsyncHandler(async (req, res) => {
+  const teacher = await Teacher.findById(req.params.teacherId);
+  if (!teacher) {
+    res.status(404);
+    throw new Error("Teacher not found");
+  }
+  const blog = await Blog.find({ author: teacher._id });
+  res.status(200).json({
+    status: "success",
+    data: blog,
+    message: "Blog fetched successfully",
+  });
+});
 exports.demoCreateTest = AsyncHandler(async (req, res) => {
   const { testName, categories, questions } = req.body;
 
