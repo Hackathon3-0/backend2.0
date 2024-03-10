@@ -20,7 +20,7 @@ const {
   getAllBlogs,
   getAllAdverts,
 } = require("../controller/studentController");
-const sendEmail = require("../utils/verifyMail");
+const { studentSendEmail } = require("../utils/verifyMail");
 const studentRouter = express.Router();
 
 studentRouter.post("/register", registerStudent);
@@ -67,7 +67,7 @@ studentRouter.put(
   "/:studentId/verify-email/:token",
   isAuthenticated(Student),
   roleRestriction("student"),
-  sendEmail
+  studentSendEmail
 );
 studentRouter.put(
   "/:studentId/student-like-blog/:blogId",

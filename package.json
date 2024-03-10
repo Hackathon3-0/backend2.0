@@ -16,6 +16,8 @@
     "express-async-handler": "^1.2.0",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
+    "mailgun-js": "^0.22.0",
+    "mailgun.js": "^10.2.1",
     "mongodb": "^6.4.0",
     "mongofb": "^1.0.1",
     "mongoose": "^8.2.1",

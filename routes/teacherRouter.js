@@ -17,6 +17,7 @@ const {
   teacherAssignHomework,
   getMyBlog,
 } = require("../controller/teacherController");
+const { teacherSendEmail } = require("../utils/verifyMail");
 const teacherRouter = express.Router();
 
 teacherRouter.post("/register", registerTeacher);
@@ -34,6 +35,12 @@ teacherRouter.put(
   isAuthenticated(Teacher),
   roleRestriction("teacher"),
   addNewCategory
+);
+teacherRouter.put(
+  "/:teacherId/verify-email/:token",
+  isAuthenticated(Teacher),
+  roleRestriction("teacher"),
+  teacherSendEmail
 );
 teacherRouter.post(
   "/:teacherId/publish-blog",
