@@ -103,19 +103,22 @@ exports.addNewCategory = AsyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Teacher not found");
   }
-  const { category } = req.body;
+  const { categories } = req.body; // change 'category' to 'categories'
 
-  if (teacher.categories.includes(category)) {
-    res.status(400);
-    throw new Error("Category already exists");
-  }
+  categories.forEach((category) => {
+    // loop through the categories
+    if (teacher.categories.includes(category)) {
+      res.status(400);
+      throw new Error(`Category ${category} already exists`);
+    }
+    teacher.categories.push(category);
+  });
 
-  teacher.categories.push(category);
   const updatedTeacher = await teacher.save();
   res.status(200).json({
     status: "success",
     data: updatedTeacher,
-    message: "Category added successfully",
+    message: "Categories added successfully",
   });
 });
 
