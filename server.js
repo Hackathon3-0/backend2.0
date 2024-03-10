@@ -1,3 +1,4 @@
+const Message = require("./model/Message");
 require("dotenv").config();
 require("./config/dbConnect");
 
